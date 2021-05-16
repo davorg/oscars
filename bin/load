@@ -1,0 +1,55 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use feature 'say';
+
+use Text::CSV;
+use Data::Dumper;
+
+use Oscars::Schema;
+
+my $sch = Oscars::Schema->get_schema;
+
+my %rs;
+
+$rs{$_} = $sch->resultset($_) for qw[Ceremony Category Film Nomination];
+
+unless (@ARGV) {
+  @ARGV = ('data/the_oscar_award.csv');
+}
+
+my $csv = Text::CSV->new ({ binary => 1, auto_diag => 1 });
+
+my @headers = $csv->header(*ARGV);
+
+# Want to be cleverer about this
+$rs{Nomination}->delete;
+
+while (my $nom = $csv->getline_hr(*ARGV)) {
+
+  warn "$_\n" unless defined $nom->{winner};
+
+  next unless $nom->{film};
+
+  my $ceremony = $rs{Ceremony}->find_or_create({
+    ceremony_year => $nom->{year_ceremony},
+    release_year  => $nom->{year_film},
+    ceremony_number => $nom->{ceremony},
+  });
+
+  my $category = $rs{Category}->find_or_create({
+    name => $nom->{category},
+  });
+
+  my $film = $rs{Film}->find_or_create({
+    title => $nom->{film},
+  });
+
+  $film->add_to_nominations({
+    ceremony_id => $ceremony->id,
+    category_id => $category->id,
+    text        => $nom->{name},
+    winner      => ($nom->{winner} eq 'True' ? 1 : 0),
+  });
+}

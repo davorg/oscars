@@ -1,0 +1,34 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use feature 'say';
+
+use Oscars::Schema;
+
+my $sch = Oscars::Schema->get_schema;
+
+my @categories = (
+  'OUTSTANDING PICTURE',
+  'OUTSTANDING PRODUCTION',
+  'OUTSTANDING MOTION PICTURE',
+  'BEST MOTION PICTURE',
+  'BEST PICTURE'
+);
+
+for ($sch->resultset('Ceremony')->search({}, { order_by => 'ceremony_year' })) {
+  say $_->ceremony_year;
+
+  my ($nom) = $_->nominations->search({
+    'category.name' => \@categories,
+    winner => 1,
+  }, {
+    join => 'category',
+  });
+
+  if ($nom) {
+    say $nom->film->title;
+  } else {
+    say "Can't find the winner";
+  }
+}
