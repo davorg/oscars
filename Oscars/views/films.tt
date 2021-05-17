@@ -1,0 +1,5 @@
+<ul>
+<% FOR film IN films -%>
+  <li><% film.title %></li>
+<% END -%>
+</li>
