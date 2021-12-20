@@ -1,0 +1,7 @@
+#!/bin/bash
+
+dir=$(dirname "$0")
+
+mv $dir/../data/oscars.db $dir/../data/oscars.db.old
+sqlite3 $dir/../data/oscars.db < $dir/../data/oscars.sql
+
