@@ -9,7 +9,9 @@ ceremony_number integer NOT NULL UNIQUE
 DROP TABLE IF EXISTS category;
 CREATE TABLE category (
 id integer NOT NULL PRIMARY KEY,
-name char(50) NOT NULL UNIQUE
+name char(50),
+subname char(50),
+UNIQUE (name, subname)
 );
 
 DROP TABLE IF EXISTS film;

@@ -70,6 +70,29 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
 );
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<ceremony_id_category_id_film_id_text_unique>
+
+=over 4
+
+=item * L</ceremony_id>
+
+=item * L</category_id>
+
+=item * L</film_id>
+
+=item * L</text>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint(
+  "ceremony_id_category_id_film_id_text_unique",
+  ["ceremony_id", "category_id", "film_id", "text"],
+);
+
 =head1 RELATIONS
 
 =head2 category
@@ -118,8 +141,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-16 11:22:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:p7C8lvYIIOLiTFAHCHt5/g
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-12-20 20:36:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1G6VO3jl4nu6SFg/5AC6kQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

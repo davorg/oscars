@@ -59,6 +59,20 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<title_unique>
+
+=over 4
+
+=item * L</title>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("title_unique", ["title"]);
+
 =head1 RELATIONS
 
 =head2 nominations
@@ -77,8 +91,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-16 11:22:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1qDkJPofGm67Opx8nKpo8A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-12-20 20:36:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Os7c8Ac0NchV1Oa/gEGJpg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

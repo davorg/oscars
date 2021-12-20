@@ -9,11 +9,11 @@ use Oscars::Schema;
 my $sch = Oscars::Schema->get_schema;
 
 my @categories = (
-  'OUTSTANDING PICTURE',
-  'OUTSTANDING PRODUCTION',
-  'OUTSTANDING MOTION PICTURE',
-  'BEST MOTION PICTURE',
-  'BEST PICTURE'
+  'Outstanding Picture',
+  'Outstanding Production',
+  'Outstanding Motion Picture',
+  'Best Motion Picture',
+  'Best Picture'
 );
 
 for ($sch->resultset('Ceremony')->search({}, { order_by => 'ceremony_year' })) {

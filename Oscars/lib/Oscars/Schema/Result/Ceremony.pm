@@ -72,6 +72,44 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<ceremony_number_unique>
+
+=over 4
+
+=item * L</ceremony_number>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("ceremony_number_unique", ["ceremony_number"]);
+
+=head2 C<ceremony_year_unique>
+
+=over 4
+
+=item * L</ceremony_year>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("ceremony_year_unique", ["ceremony_year"]);
+
+=head2 C<release_year_unique>
+
+=over 4
+
+=item * L</release_year>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("release_year_unique", ["release_year"]);
+
 =head1 RELATIONS
 
 =head2 nominations
@@ -90,8 +128,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-16 11:22:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KOn3ztvrbjZzSVZFu2G6eA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-12-20 20:36:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rjuj7EAhzKqy3/TD9cgcVg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

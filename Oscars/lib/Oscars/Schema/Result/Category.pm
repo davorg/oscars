@@ -35,7 +35,13 @@ __PACKAGE__->table("category");
 =head2 name
 
   data_type: 'char'
-  is_nullable: 0
+  is_nullable: 1
+  size: 50
+
+=head2 subname
+
+  data_type: 'char'
+  is_nullable: 1
   size: 50
 
 =cut
@@ -44,7 +50,9 @@ __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "name",
-  { data_type => "char", is_nullable => 0, size => 50 },
+  { data_type => "char", is_nullable => 1, size => 50 },
+  "subname",
+  { data_type => "char", is_nullable => 1, size => 50 },
 );
 
 =head1 PRIMARY KEY
@@ -58,6 +66,22 @@ __PACKAGE__->add_columns(
 =cut
 
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<name_subname_unique>
+
+=over 4
+
+=item * L</name>
+
+=item * L</subname>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("name_subname_unique", ["name", "subname"]);
 
 =head1 RELATIONS
 
@@ -77,8 +101,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-16 11:22:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4b+2aIVblDCj7petiUbBIw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-12-20 20:36:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4G60pzHrCq5JYSHj/XWEHQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

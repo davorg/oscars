@@ -38,8 +38,11 @@ while (my $nom = $csv->getline_hr(*ARGV)) {
     ceremony_number => $nom->{ceremony},
   });
 
+  my ($cat_name, $cat_subname) = split_cat_name($nom->{category});
+
   my $category = $rs{Category}->find_or_create({
-    name => $nom->{category},
+    name    => $cat_name,
+    subname => $cat_subname,
   });
 
   my $film = $rs{Film}->find_or_create({
@@ -52,4 +55,23 @@ while (my $nom = $csv->getline_hr(*ARGV)) {
     text        => $nom->{name},
     winner      => ($nom->{winner} eq 'True' ? 1 : 0),
   });
+}
+
+sub split_cat_name {
+  my ($name) = @_;
+
+  my ($cat_name, $cat_subname);
+  if ($name =~ /\(/) {
+    ($cat_subname) = $name =~ /\((.+)\)/;
+    $cat_name = $name =~ s/ \(.+\)//r;
+  } else {
+    $cat_name = $name;
+    $cat_subname = '';
+  }
+
+  $cat_name = join ' ', map { ucfirst lc } split /\s+/, $cat_name;
+
+  warn "$cat_name / $cat_subname\n";
+
+  return ($cat_name, $cat_subname);
 }
