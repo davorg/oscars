@@ -1,0 +1,10 @@
+#!/bin/bash
+
+dir=$(dirname "$0")
+
+if [ $# -eq 0 ]
+then
+  sqlite3 $dir/../data/oscars.db
+else
+  echo "$*" | sqlite3 $dir/../data/oscars.db
+fi
