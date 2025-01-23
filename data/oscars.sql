@@ -32,3 +32,15 @@ FOREIGN KEY (ceremony_id) REFERENCES ceremony(id),
 FOREIGN KEY (category_id) REFERENCES category(id),
 FOREIGN KEY (film_id) REFERENCES film(id)
 );
+
+DROP TABLE IF EXISTS person;
+CREATE TABLE person (
+id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+surname char(50) NOT NULL,
+forename char(50) NOT NULL,
+display_name char(100),
+sort_name char(100),
+birth_date date,
+death_date date,
+imdb_key char(50)
+);
