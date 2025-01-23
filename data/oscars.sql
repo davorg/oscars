@@ -3,7 +3,8 @@ CREATE TABLE ceremony (
 id integer NOT NULL PRIMARY KEY,
 ceremony_year integer NOT NULL UNIQUE,
 release_year integer NOT NULL UNIQUE,
-ceremony_number integer NOT NULL UNIQUE
+ceremony_number integer NOT NULL UNIQUE,
+date date NOT NULL
 );
 
 DROP TABLE IF EXISTS category;
